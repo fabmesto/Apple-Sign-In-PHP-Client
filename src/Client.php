@@ -47,7 +47,8 @@ class Client
     public function verifyAndDecodeJwt($jwtToken)
     {
         return new JwtVerifyResponse(
-            JWT::decode($jwtToken, $this->getApplePublicKey(), ['RS256'])
+            //JWT::decode($jwtToken, $this->getApplePublicKey(), ['RS256'])
+            JWT::decode($jwtToken, $this->getApplePublicKey())
         );
     }
 
@@ -164,7 +165,7 @@ class Client
             throw new Exception('Failed to decode JSON - Invalid data returned');
         }
 
-        return JWK::parseKeySet($appleJwkKeyArray);
+        return JWK::parseKeySet($appleJwkKeyArray, 'RS256');
     }
 
     /**
